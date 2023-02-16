@@ -1,0 +1,13 @@
+image: node:latest
+
+stages:
+  - publish
+
+publish:
+  stage: publish
+  tags:
+    - plugins
+  script:
+    - echo -e "\n@vaddk:registry=https://${CI_SERVER_HOST}/api/v4/projects/${PROJECT_ID}/packages/npm/" >> .npmrc
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/${PROJECT_ID}/packages/npm/:_authToken=${PROJECT_TOKEN}" >> .npmrc
+    - npm publish
